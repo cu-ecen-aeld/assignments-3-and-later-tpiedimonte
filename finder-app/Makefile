@@ -11,6 +11,7 @@ else
 	CC=gcc
 endif
 
+all: $(TARGET)
 
 $(TARGET) : $(OBJS)
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) -o $(TARGET) $(LDFLAGS)
