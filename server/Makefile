@@ -11,6 +11,8 @@ else
 	CC=gcc
 endif
 
+LDFLAGS = -pthread -lrt
+
 all: $(TARGET)
 
 $(TARGET) : $(OBJS)
