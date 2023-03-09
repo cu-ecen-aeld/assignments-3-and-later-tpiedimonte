@@ -4,12 +4,14 @@ OBJS := $(SRC:.c=.o)
 
 
 CROSS_COMPILE ?= none
+#CC=aarch64-none-linux-gnu-gcc
+CC=gcc
 
-ifeq ($(CROSS_COMPILE),aarch64-none-linux-gnu-)
-	CC=aarch64-none-linux-gnu-gcc
-else
-	CC=gcc
-endif
+#ifeq ($(CROSS_COMPILE),aarch64-none-linux-gnu-)
+#	CC=aarch64-none-linux-gnu-gcc
+#else
+#	CC=gcc
+#endif
 
 LDFLAGS = -pthread -lrt
 
