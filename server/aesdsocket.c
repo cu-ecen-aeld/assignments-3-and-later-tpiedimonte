@@ -22,13 +22,11 @@
 #include <time.h>
 #include <unistd.h>
 
-#define PORT 9000
 #define LOG_FILE "/var/tmp/aesdsocketdata.txt"
 
 static int error = -1;
 
 /* File Scope Variables */
-bool d_mode = false;
 FILE *fout;
 pid_t pid;
 
@@ -45,6 +43,7 @@ struct thread_info {
 SLIST_HEAD(thread_list, thread_info) threads = SLIST_HEAD_INITIALIZER(threads);
 
 static void *write_timestamp(void *arg) {
+  (void *)(arg);
   time_t now;
   struct tm *time_info;
   char timestamp[128];
@@ -79,11 +78,11 @@ static void *thread_server(void *arg) {
   struct thread_info *threadInfo = arg;
   int client = threadInfo->client;
   pthread_mutex_unlock(&mutex);
+  printf("Server Thread for client %d up and running", client);
 
   while (!kill_thread) {
 
-    printf("Server Thread for client %d up and running", client);
-    while (ptr == NULL) {
+    do {
       memset(clientRxBuf, 0, 512);
       nrx = (int)recv(client, clientRxBuf, 511, 0);
       ptr = strchr(clientRxBuf, NL);
@@ -97,7 +96,7 @@ static void *thread_server(void *arg) {
         loc = (int)ftell(fout) - 1;
         pthread_mutex_unlock(&mutex);
       }
-    }
+    } while (ptr == NULL);
 
     if (nrx <= 0) {
       if (nrx == 0) {
@@ -174,12 +173,8 @@ static void signal_handler(int signal) {
 }
 
 int main(int argc, char **argv) {
-
-  struct sockaddr_in svr;
-  struct sockaddr_in clt;
-  socklen_t addr_size;
-
-  int serverfd, acceptfd, status;
+  const char *daemonArg = argv[1];
+  bool d_mode = false;
 
   // register signal handlers
   printf("Starting Up \n");
@@ -188,32 +183,67 @@ int main(int argc, char **argv) {
 
   pthread_mutex_init(&mutex, NULL);
 
-  // setup server
-  serverfd = socket(AF_INET, SOCK_STREAM, 0);
-  if (serverfd == -1) {
-    printf("socket error = %d\n", errno);
+  fout = fopen(LOG_FILE, "w+");
+  if (fout == NULL) {
+    printf("Failed to open %s\n", LOG_FILE);
     exit(-1);
-  } else {
-    printf("socket success\n");
-  }
-
-  svr.sin_addr.s_addr = INADDR_ANY;
-  svr.sin_family = AF_INET;
-  svr.sin_port = htons(PORT);
-
-  // bind server
-  status =
-      bind(serverfd, (struct sockaddr_in *)&svr, sizeof(struct sockaddr_in));
-  if (status == -1) {
-    printf("bind error = %d\n", errno);
-    exit(-1);
-  } else {
-    printf("bind success\n");
   }
 
   // determine daemon mode
-  if (argc > 1 && strcmp(argv[1], "-d") == 0) {
+  if (argc > 1 && strcmp(daemonArg, "-d") == 0) {
     d_mode = true;
+  }
+
+  int nsocket, nbind, getaddr, nlisten, client;
+  struct addrinfo hints, *servinfo;
+
+  memset(&hints, 0, sizeof(hints));
+  hints.ai_family = AF_UNSPEC;
+  hints.ai_socktype = SOCK_STREAM;
+  hints.ai_flags = AI_PASSIVE;
+  getaddr = getaddrinfo(NULL, "9000", &hints, &servinfo);
+
+  if (getaddr != 0) {
+    printf("Error - failed to getAddrInfo, returned %d", getaddr);
+    freeaddrinfo(servinfo);
+    fclose(fout);
+    pthread_mutex_destroy(&mutex);
+    return -1;
+  }
+
+  nsocket =
+      socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
+  if (nsocket == -1) {
+    printf("Error - failed to get socket, returned %d", nsocket);
+    freeaddrinfo(servinfo);
+    fclose(fout);
+    pthread_mutex_destroy(&mutex);
+    return -1;
+  }
+
+  do {
+    nbind = bind(nsocket, servinfo->ai_addr, servinfo->ai_addrlen);
+    close(nsocket);
+    sleep(1);
+    nsocket = socket(servinfo->ai_family, servinfo->ai_socktype,
+                     servinfo->ai_protocol);
+    if (nsocket == -1) {
+      printf("Error - failed to get socket, returned %d", nsocket);
+      freeaddrinfo(servinfo);
+      fclose(fout);
+      pthread_mutex_destroy(&mutex);
+      return -1;
+    }
+  } while (nbind == -1 && errno == EADDRINUSE);
+  freeaddrinfo(servinfo);
+
+  int yes = 1;
+  if (setsockopt(nsocket, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes)) == -1) {
+    printf("Error - failed to setsockopt\n");
+    shutdown(nsocket, SHUT_RDWR);
+    fclose(fout);
+    pthread_mutex_destroy(&mutex);
+    return -1;
   }
 
   // daemon mode
@@ -221,51 +251,48 @@ int main(int argc, char **argv) {
     pid = fork();
     if (pid == -1) {
       printf("fork error = %d\n", errno);
+      shutdown(nsocket, SHUT_RDWR);
+      fclose(fout);
+      pthread_mutex_destroy(&mutex);
       return -1;
     } else if (pid != 0) {
       exit(0);
     }
   }
 
-  status = listen(serverfd, 10);
-  if (status == -1) {
-    printf("listen error = %d\n", errno);
-    exit(-1);
+  nlisten = listen(nsocket, SOMAXCONN);
+  if (nlisten != 0) {
+    printf("Error - failed to listen\n");
+    shutdown(nsocket, SHUT_RDWR);
+    fclose(fout);
+    pthread_mutex_destroy(&mutex);
   } else {
-    printf("listen success\n");
-  }
-
-  fout = fopen(LOG_FILE, "w+");
-  if (fout == NULL) {
-    printf("Failed to open %s\n", fout);
-    exit(-1);
+    printf("Listening...\n");
   }
 
   struct thread_info *thread_info_i;
-
   pthread_t time_thread;
   pthread_create(&time_thread, NULL, write_timestamp, NULL);
 
   while (!kill_thread) {
-    addr_size = sizeof(clt);
-    acceptfd = accept(serverfd, (struct sockaddr_in *)&clt, &addr_size);
-    if (acceptfd == -1) {
+    client = accept(nsocket, servinfo->ai_addr, &servinfo->ai_addrlen);
+    if (client == -1) {
       printf("accept error = %d\n", errno);
       fclose(fout);
       pthread_join(time_thread, NULL);
       pthread_mutex_destroy(&mutex);
-      shutdown(acceptfd, SHUT_RDWR);
-      shutdown(serverfd, SHUT_RDWR);
-      exit(-1);
+      shutdown(client, SHUT_RDWR);
+      shutdown(nsocket, SHUT_RDWR);
+      return -1;
     }
 
     if (!kill_thread) {
       printf("accept success\n");
-      printf("Accepted connection from : %s\n", inet_ntoa(clt.sin_addr));
+      printf("Accepted connection from : %d\n", client);
 
       struct thread_info *info = malloc(sizeof(struct thread_info));
       info->done = false;
-      info->client = acceptfd;
+      info->client = client;
       pthread_create(&info->thread_id, NULL, thread_server, (void *)info);
 
       pthread_mutex_lock(&mutex);
@@ -275,6 +302,7 @@ int main(int argc, char **argv) {
         if (thread_info_i->done) {
           pthread_join(thread_info_i->thread_id, NULL);
           SLIST_REMOVE(&threads, thread_info_i, thread_info, entries);
+          free(thread_info_i);
         }
       }
       pthread_mutex_unlock(&mutex);
@@ -283,8 +311,8 @@ int main(int argc, char **argv) {
 
   pthread_join(time_thread, NULL);
   fclose(fout);
-  shutdown(acceptfd, SHUT_RDWR);
-  shutdown(serverfd, SHUT_RDWR);
+  shutdown(client, SHUT_RDWR);
+  shutdown(nsocket, SHUT_RDWR);
   pthread_mutex_destroy(&mutex);
   return 0;
 }
