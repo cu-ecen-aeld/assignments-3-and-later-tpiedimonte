@@ -82,6 +82,7 @@ static void *thread_server(void *arg) {
 
   while (!kill_thread) {
 
+    printf("Server Thread for client %d up and running", client);
     while (ptr == NULL) {
       memset(clientRxBuf, 0, 512);
       nrx = (int)recv(client, clientRxBuf, 511, 0);
