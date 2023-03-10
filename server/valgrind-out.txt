@@ -1,114 +1,1180 @@
-==5446== Memcheck, a memory error detector
-==5446== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==5446== Using Valgrind-3.15.0-608cb11914-20190413 and LibVEX; rerun with -h for copyright info
-==5446== Command: ./aesdsocket
-==5446== Parent PID: 5441
-==5446== 
---5446-- 
---5446-- Valgrind options:
---5446--    --error-exitcode=1
---5446--    --leak-check=full
---5446--    --show-leak-kinds=all
---5446--    --track-origins=yes
---5446--    --errors-for-leak-kinds=definite
---5446--    --verbose
---5446--    --log-file=valgrind-out.txt
---5446-- Contents of /proc/version:
---5446--   Linux version 5.15.0-60-generic (buildd@lcy02-amd64-017) (gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0, GNU ld (GNU Binutils for Ubuntu) 2.34) #66~20.04.1-Ubuntu SMP Wed Jan 25 09:41:30 UTC 2023
---5446-- 
---5446-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-rdtscp-sse3-ssse3
---5446-- Page sizes: currently 4096, max supported 4096
---5446-- Valgrind library directory: /usr/lib/x86_64-linux-gnu/valgrind
---5446-- Reading syms from /home/ty/src/assignments-3-and-later-tpiedimonte/server/aesdsocket
---5446-- Reading syms from /usr/lib/x86_64-linux-gnu/ld-2.31.so
---5446--   Considering /usr/lib/debug/.build-id/45/87364908de169dec62ffa538170118c1c3a078.debug ..
---5446--   .. build-id is valid
---5446-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/memcheck-amd64-linux
---5446--    object doesn't have a symbol table
---5446--    object doesn't have a dynamic symbol table
---5446-- Scheduler: using generic scheduler lock implementation.
---5446-- Reading suppressions file: /usr/lib/x86_64-linux-gnu/valgrind/default.supp
-==5446== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-5446-by-ty-on-???
-==5446== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-5446-by-ty-on-???
-==5446== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-5446-by-ty-on-???
-==5446== 
-==5446== TO CONTROL THIS PROCESS USING vgdb (which you probably
-==5446== don't want to do, unless you know exactly what you're doing,
-==5446== or are doing some strange experiment):
-==5446==   /usr/lib/x86_64-linux-gnu/valgrind/../../bin/vgdb --pid=5446 ...command...
-==5446== 
-==5446== TO DEBUG THIS PROCESS USING GDB: start GDB like this
-==5446==   /path/to/gdb ./aesdsocket
-==5446== and then give GDB the following command
-==5446==   target remote | /usr/lib/x86_64-linux-gnu/valgrind/../../bin/vgdb --pid=5446
-==5446== --pid is optional if only one valgrind process is running
-==5446== 
---5446-- REDIR: 0x4022e20 (ld-linux-x86-64.so.2:strlen) redirected to 0x580c9ce2 (???)
---5446-- REDIR: 0x4022bf0 (ld-linux-x86-64.so.2:index) redirected to 0x580c9cfc (???)
---5446-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_core-amd64-linux.so
---5446--    object doesn't have a symbol table
---5446-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so
---5446--    object doesn't have a symbol table
-==5446== WARNING: new redirection conflicts with existing -- ignoring it
---5446--     old: 0x04022e20 (strlen              ) R-> (0000.0) 0x580c9ce2 ???
---5446--     new: 0x04022e20 (strlen              ) R-> (2007.0) 0x0483f060 strlen
---5446-- REDIR: 0x401f600 (ld-linux-x86-64.so.2:strcmp) redirected to 0x483ffd0 (strcmp)
---5446-- REDIR: 0x4023380 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4843a20 (mempcpy)
---5446-- Reading syms from /usr/lib/x86_64-linux-gnu/libc-2.31.so
---5446--   Considering /usr/lib/debug/.build-id/18/78e6b475720c7c51969e69ab2d276fae6d1dee.debug ..
---5446--   .. build-id is valid
---5446-- REDIR: 0x48fb480 (libc.so.6:memmove) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48fa780 (libc.so.6:strncpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48fb7b0 (libc.so.6:strcasecmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48fa0a0 (libc.so.6:strcat) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48fa7e0 (libc.so.6:rindex) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48fcc50 (libc.so.6:rawmemchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x4917ce0 (libc.so.6:wmemchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x4917820 (libc.so.6:wcscmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48fb5e0 (libc.so.6:mempcpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48fb410 (libc.so.6:bcmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48fa710 (libc.so.6:strncmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48fa150 (libc.so.6:strcmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48fb540 (libc.so.6:memset) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x49177e0 (libc.so.6:wcschr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48fa670 (libc.so.6:strnlen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48fa230 (libc.so.6:strcspn) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48fb800 (libc.so.6:strncasecmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48fa1d0 (libc.so.6:strcpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48fb950 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x4918f50 (libc.so.6:wcsnlen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x4917860 (libc.so.6:wcscpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48fa820 (libc.so.6:strpbrk) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48fa100 (libc.so.6:index) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48fa630 (libc.so.6:strlen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x4903bb0 (libc.so.6:memrchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48fb850 (libc.so.6:strcasecmp_l) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48fb3d0 (libc.so.6:memchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x4917930 (libc.so.6:wcslen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48faae0 (libc.so.6:strspn) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48fb750 (libc.so.6:stpncpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48fb6f0 (libc.so.6:stpcpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48fcc90 (libc.so.6:strchrnul) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x48fb8a0 (libc.so.6:strncasecmp_l) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5446-- REDIR: 0x490c8c0 (libc.so.6:__strrchr_sse2) redirected to 0x483ea70 (__strrchr_sse2)
---5446-- REDIR: 0x48f50e0 (libc.so.6:malloc) redirected to 0x483b780 (malloc)
---5446-- REDIR: 0x48f6b10 (libc.so.6:calloc) redirected to 0x483dce0 (calloc)
---5446-- REDIR: 0x490c6b0 (libc.so.6:__strchrnul_sse2) redirected to 0x4843540 (strchrnul)
---5446-- REDIR: 0x490cbc0 (libc.so.6:__strlen_sse2) redirected to 0x483efa0 (__strlen_sse2)
---5446-- REDIR: 0x48f56d0 (libc.so.6:free) redirected to 0x483c9d0 (free)
---5446-- REDIR: 0x4916ad0 (libc.so.6:memcpy@GLIBC_2.2.5) redirected to 0x4840100 (memcpy@GLIBC_2.2.5)
---5446-- REDIR: 0x48fafa0 (libc.so.6:__GI_strstr) redirected to 0x4843ca0 (__strstr_sse2)
---5446-- REDIR: 0x49e8550 (libc.so.6:__memcmp_sse4_1) redirected to 0x4842150 (__memcmp_sse4_1)
---5446-- REDIR: 0x49053b0 (libc.so.6:__strcmp_sse2_unaligned) redirected to 0x483fed0 (strcmp)
---5446-- REDIR: 0x4916f00 (libc.so.6:__memset_sse2_unaligned) redirected to 0x48428e0 (memset)
---5446-- REDIR: 0x48f5e80 (libc.so.6:realloc) redirected to 0x483df30 (realloc)
---5446-- REDIR: 0x4916ab0 (libc.so.6:__mempcpy_sse2_unaligned) redirected to 0x4843660 (mempcpy)
---5446-- REDIR: 0x490c480 (libc.so.6:__strchr_sse2) redirected to 0x483eb90 (__strchr_sse2)
-==5446== 
-==5446== HEAP SUMMARY:
-==5446==     in use at exit: 0 bytes in 0 blocks
-==5446==   total heap usage: 310 allocs, 310 frees, 796,956 bytes allocated
-==5446== 
-==5446== All heap blocks were freed -- no leaks are possible
-==5446== 
-==5446== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==28953== Memcheck, a memory error detector
+==28953== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==28953== Using Valgrind-3.15.0-608cb11914-20190413 and LibVEX; rerun with -h for copyright info
+==28953== Command: ./aesdsocket
+==28953== Parent PID: 28951
+==28953== 
+--28953-- 
+--28953-- Valgrind options:
+--28953--    --error-exitcode=1
+--28953--    --leak-check=full
+--28953--    --show-leak-kinds=all
+--28953--    --track-origins=yes
+--28953--    --errors-for-leak-kinds=definite
+--28953--    --verbose
+--28953--    --log-file=valgrind-out.txt
+--28953-- Contents of /proc/version:
+--28953--   Linux version 5.15.90.1-microsoft-standard-WSL2 (oe-user@oe-host) (x86_64-msft-linux-gcc (GCC) 9.3.0, GNU ld (GNU Binutils) 2.34.0.20200220) #1 SMP Fri Jan 27 02:56:13 UTC 2023
+--28953-- 
+--28953-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-bmi-f16c-rdrand
+--28953-- Page sizes: currently 4096, max supported 4096
+--28953-- Valgrind library directory: /usr/lib/x86_64-linux-gnu/valgrind
+--28953-- Reading syms from /home/tyler/assignments-3-and-later-tpiedimonte/server/aesdsocket
+--28953-- Reading syms from /usr/lib/x86_64-linux-gnu/ld-2.31.so
+--28953--   Considering /usr/lib/debug/.build-id/45/87364908de169dec62ffa538170118c1c3a078.debug ..
+--28953--   .. build-id is valid
+--28953-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/memcheck-amd64-linux
+--28953--    object doesn't have a symbol table
+--28953--    object doesn't have a dynamic symbol table
+--28953-- Scheduler: using generic scheduler lock implementation.
+--28953-- Reading suppressions file: /usr/lib/x86_64-linux-gnu/valgrind/default.supp
+==28953== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-28953-by-tyler-on-???
+==28953== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-28953-by-tyler-on-???
+==28953== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-28953-by-tyler-on-???
+==28953== 
+==28953== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==28953== don't want to do, unless you know exactly what you're doing,
+==28953== or are doing some strange experiment):
+==28953==   /usr/lib/x86_64-linux-gnu/valgrind/../../bin/vgdb --pid=28953 ...command...
+==28953== 
+==28953== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==28953==   /path/to/gdb ./aesdsocket
+==28953== and then give GDB the following command
+==28953==   target remote | /usr/lib/x86_64-linux-gnu/valgrind/../../bin/vgdb --pid=28953
+==28953== --pid is optional if only one valgrind process is running
+==28953== 
+--28953-- REDIR: 0x4022e20 (ld-linux-x86-64.so.2:strlen) redirected to 0x580c9ce2 (???)
+--28953-- REDIR: 0x4022bf0 (ld-linux-x86-64.so.2:index) redirected to 0x580c9cfc (???)
+--28953-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_core-amd64-linux.so
+--28953--    object doesn't have a symbol table
+--28953-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so
+--28953--    object doesn't have a symbol table
+==28953== WARNING: new redirection conflicts with existing -- ignoring it
+--28953--     old: 0x04022e20 (strlen              ) R-> (0000.0) 0x580c9ce2 ???
+--28953--     new: 0x04022e20 (strlen              ) R-> (2007.0) 0x0483f060 strlen
+--28953-- REDIR: 0x401f600 (ld-linux-x86-64.so.2:strcmp) redirected to 0x483ffd0 (strcmp)
+--28953-- REDIR: 0x4023380 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4843a20 (mempcpy)
+--28953-- Reading syms from /usr/lib/x86_64-linux-gnu/libpthread-2.31.so
+--28953--   Considering /usr/lib/debug/.build-id/7b/4536f41cdaa5888408e82d0836e33dcf436466.debug ..
+--28953--   .. build-id is valid
+--28953-- Reading syms from /usr/lib/x86_64-linux-gnu/libc-2.31.so
+--28953--   Considering /usr/lib/debug/.build-id/18/78e6b475720c7c51969e69ab2d276fae6d1dee.debug ..
+--28953--   .. build-id is valid
+--28953-- REDIR: 0x4917480 (libc.so.6:memmove) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x4916780 (libc.so.6:strncpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x49177b0 (libc.so.6:strcasecmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x49160a0 (libc.so.6:strcat) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x49167e0 (libc.so.6:rindex) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x4918c50 (libc.so.6:rawmemchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x4933ce0 (libc.so.6:wmemchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x4933820 (libc.so.6:wcscmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x49175e0 (libc.so.6:mempcpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x4917410 (libc.so.6:bcmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x4916710 (libc.so.6:strncmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x4916150 (libc.so.6:strcmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x4917540 (libc.so.6:memset) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x49337e0 (libc.so.6:wcschr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x4916670 (libc.so.6:strnlen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x4916230 (libc.so.6:strcspn) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x4917800 (libc.so.6:strncasecmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x49161d0 (libc.so.6:strcpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x4917950 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x4934f50 (libc.so.6:wcsnlen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x4933860 (libc.so.6:wcscpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x4916820 (libc.so.6:strpbrk) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x4916100 (libc.so.6:index) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x4916630 (libc.so.6:strlen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x491fbb0 (libc.so.6:memrchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x4917850 (libc.so.6:strcasecmp_l) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x49173d0 (libc.so.6:memchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x4933930 (libc.so.6:wcslen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x4916ae0 (libc.so.6:strspn) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x4917750 (libc.so.6:stpncpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x49176f0 (libc.so.6:stpcpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x4918c90 (libc.so.6:strchrnul) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x49178a0 (libc.so.6:strncasecmp_l) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--28953-- REDIR: 0x49ff500 (libc.so.6:__strrchr_avx2) redirected to 0x483ea10 (rindex)
+--28953-- REDIR: 0x49ff6d0 (libc.so.6:__strlen_avx2) redirected to 0x483ef40 (strlen)
+--28953-- REDIR: 0x49110e0 (libc.so.6:malloc) redirected to 0x483b780 (malloc)
+--28953-- REDIR: 0x4916fa0 (libc.so.6:__GI_strstr) redirected to 0x4843ca0 (__strstr_sse2)
+--28953-- REDIR: 0x4a02b60 (libc.so.6:__memset_avx2_unaligned_erms) redirected to 0x48428e0 (memset)
+--28953-- REDIR: 0x49116d0 (libc.so.6:free) redirected to 0x483c9d0 (free)
+--28953-- REDIR: 0x49fb530 (libc.so.6:__memchr_avx2) redirected to 0x4840050 (memchr)
+--28953-- REDIR: 0x4a026e0 (libc.so.6:__memcpy_avx_unaligned_erms) redirected to 0x48429f0 (memmove)
+--28953-- REDIR: 0x49ff0e0 (libc.so.6:__strchr_avx2) redirected to 0x483ebf0 (index)
+--28953-- REDIR: 0x4911e80 (libc.so.6:realloc) redirected to 0x483df30 (realloc)
+--28953-- REDIR: 0x49fbcc0 (libc.so.6:__memcmp_avx2_movbe) redirected to 0x48421e0 (bcmp)
+--28953-- REDIR: 0x4a026c0 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x4843660 (mempcpy)
+--28953-- REDIR: 0x4912b10 (libc.so.6:calloc) redirected to 0x483dce0 (calloc)
+==28953== Invalid read of size 8
+==28953==    at 0x10A14C: main (aesdsocket.c:296)
+==28953==  Address 0x4a6d348 is 24 bytes inside a block of size 64 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x497DB2F: freeaddrinfo (getaddrinfo.c:2521)
+==28953==    by 0x109F29: main (aesdsocket.c:245)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x497ABF9: gaih_inet.constprop.0 (getaddrinfo.c:1058)
+==28953==    by 0x497CF58: getaddrinfo (getaddrinfo.c:2256)
+==28953==    by 0x109D52: main (aesdsocket.c:205)
+==28953== 
+==28953== Syscall param socketcall.accept(addrlen_in) points to unaddressable byte(s)
+==28953==    at 0x48674FF: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Address 0x4a6d340 is 16 bytes inside a block of size 64 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x497DB2F: freeaddrinfo (getaddrinfo.c:2521)
+==28953==    by 0x109F29: main (aesdsocket.c:245)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x497ABF9: gaih_inet.constprop.0 (getaddrinfo.c:1058)
+==28953==    by 0x497CF58: getaddrinfo (getaddrinfo.c:2256)
+==28953==    by 0x109D52: main (aesdsocket.c:205)
+==28953== 
+==28953== Syscall param socketcall.accept(addr) points to unaddressable byte(s)
+==28953==    at 0x48674FF: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Address 0x4a6d360 is 48 bytes inside a block of size 64 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x497DB2F: freeaddrinfo (getaddrinfo.c:2521)
+==28953==    by 0x109F29: main (aesdsocket.c:245)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x497ABF9: gaih_inet.constprop.0 (getaddrinfo.c:1058)
+==28953==    by 0x497CF58: getaddrinfo (getaddrinfo.c:2256)
+==28953==    by 0x109D52: main (aesdsocket.c:205)
+==28953== 
+==28953== Syscall param socketcall.accept(addrlen_out) points to unaddressable byte(s)
+==28953==    at 0x48674FF: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Address 0x4a6d340 is 16 bytes inside a block of size 64 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x497DB2F: freeaddrinfo (getaddrinfo.c:2521)
+==28953==    by 0x109F29: main (aesdsocket.c:245)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x497ABF9: gaih_inet.constprop.0 (getaddrinfo.c:1058)
+==28953==    by 0x497CF58: getaddrinfo (getaddrinfo.c:2256)
+==28953==    by 0x109D52: main (aesdsocket.c:205)
+==28953== 
+--28953-- REDIR: 0x49ff310 (libc.so.6:__strchrnul_avx2) redirected to 0x4843540 (strchrnul)
+--28953-- Reading syms from /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+--28953--    object doesn't have a symbol table
+--28953-- REDIR: 0x49fabd0 (libc.so.6:__strcmp_avx2) redirected to 0x483fed0 (strcmp)
+==28953== Invalid read of size 4
+==28953==    at 0x48F8DDB: fclose@@GLIBC_2.2.5 (iofclose.c:48)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d080 is 0 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== Invalid read of size 1
+==28953==    at 0x49083C4: _IO_un_link (genops.c:54)
+==28953==    by 0x48F8ED4: fclose@@GLIBC_2.2.5 (iofclose.c:49)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d080 is 0 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== Invalid read of size 4
+==28953==    at 0x48F8ED5: fclose@@GLIBC_2.2.5 (iofclose.c:51)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d080 is 0 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== Invalid read of size 8
+==28953==    at 0x48F8EDD: fclose@@GLIBC_2.2.5 (iofclose.c:51)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d108 is 136 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== Invalid read of size 8
+==28953==    at 0x48F8EED: fclose@@GLIBC_2.2.5 (iofclose.c:51)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d168 is 232 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== Invalid read of size 4
+==28953==    at 0x48F900F: fclose@@GLIBC_2.2.5 (iofclose.c:51)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d160 is 224 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== Invalid read of size 8
+==28953==    at 0x48F8F0B: fclose@@GLIBC_2.2.5 (iofclose.c:51)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d108 is 136 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== Invalid read of size 4
+==28953==    at 0x48F8F12: fclose@@GLIBC_2.2.5 (iofclose.c:51)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d080 is 0 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== Invalid write of size 8
+==28953==    at 0x48F8F15: fclose@@GLIBC_2.2.5 (iofclose.c:51)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d168 is 232 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== Invalid read of size 4
+==28953==    at 0x48F8F19: fclose@@GLIBC_2.2.5 (iofclose.c:51)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d164 is 228 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== Invalid read of size 4
+==28953==    at 0x4906DF8: _IO_file_close_it@@GLIBC_2.2.5 (fileops.c:131)
+==28953==    by 0x48F8F35: fclose@@GLIBC_2.2.5 (iofclose.c:53)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d0f0 is 112 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== Invalid read of size 4
+==28953==    at 0x48F8F36: fclose@@GLIBC_2.2.5 (iofclose.c:53)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d080 is 0 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== Invalid read of size 8
+==28953==    at 0x48F8E01: _IO_acquire_lock_fct (libioP.h:885)
+==28953==    by 0x48F8E01: fclose@@GLIBC_2.2.5 (iofclose.c:51)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d108 is 136 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== Invalid read of size 4
+==28953==    at 0x48F8E08: _IO_acquire_lock_fct (libioP.h:885)
+==28953==    by 0x48F8E08: fclose@@GLIBC_2.2.5 (iofclose.c:51)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d164 is 228 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== Invalid write of size 8
+==28953==    at 0x48F8F50: _IO_acquire_lock_fct (libioP.h:885)
+==28953==    by 0x48F8F50: fclose@@GLIBC_2.2.5 (iofclose.c:51)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d168 is 232 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== Invalid read of size 4
+==28953==    at 0x48F9028: _IO_acquire_lock_fct (libioP.h:885)
+==28953==    by 0x48F9028: fclose@@GLIBC_2.2.5 (iofclose.c:51)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d160 is 224 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== Invalid read of size 8
+==28953==    at 0x48F8E12: fclose@@GLIBC_2.2.5 (iofclose.c:57)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d158 is 216 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== Invalid read of size 4
+==28953==    at 0x4906F5D: _IO_file_finish@@GLIBC_2.2.5 (fileops.c:170)
+==28953==    by 0x48F8E40: fclose@@GLIBC_2.2.5 (iofclose.c:57)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d0f0 is 112 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== Invalid read of size 8
+==28953==    at 0x4909888: _IO_default_finish (genops.c:603)
+==28953==    by 0x48F8E40: fclose@@GLIBC_2.2.5 (iofclose.c:57)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d0b8 is 56 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== Invalid read of size 8
+==28953==    at 0x4909897: _IO_default_finish (genops.c:609)
+==28953==    by 0x48F8E40: fclose@@GLIBC_2.2.5 (iofclose.c:57)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d0e0 is 96 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== Invalid read of size 8
+==28953==    at 0x49098B0: _IO_default_finish (genops.c:612)
+==28953==    by 0x48F8E40: fclose@@GLIBC_2.2.5 (iofclose.c:57)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d0c8 is 72 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== Invalid read of size 1
+==28953==    at 0x49098C6: _IO_un_link (genops.c:54)
+==28953==    by 0x49098C6: _IO_default_finish (genops.c:618)
+==28953==    by 0x48F8E40: fclose@@GLIBC_2.2.5 (iofclose.c:57)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d080 is 0 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== Invalid read of size 4
+==28953==    at 0x48F8E41: fclose@@GLIBC_2.2.5 (iofclose.c:58)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d140 is 192 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== Invalid read of size 8
+==28953==    at 0x48F8F70: fclose@@GLIBC_2.2.5 (iofclose.c:71)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d0c8 is 72 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== Invalid free() / delete / delete[] / realloc()
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d080 is 0 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+--28953-- Discarding syms at 0x5e715e0-0x5e82045 in /usr/lib/x86_64-linux-gnu/libgcc_s.so.1 (have_dinfo 1)
+==28953== 
+==28953== HEAP SUMMARY:
+==28953==     in use at exit: 296 bytes in 2 blocks
+==28953==   total heap usage: 82 allocs, 81 frees, 43,130 bytes allocated
+==28953== 
+==28953== Searching for pointers to 2 not-freed blocks
+==28953== Checked 8,476,728 bytes
+==28953== 
+==28953== 24 bytes in 1 blocks are still reachable in loss record 1 of 2
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x10A235: main (aesdsocket.c:312)
+==28953== 
+==28953== 272 bytes in 1 blocks are possibly lost in loss record 2 of 2
+==28953==    at 0x483DD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x40149DA: allocate_dtv (dl-tls.c:286)
+==28953==    by 0x40149DA: _dl_allocate_tls (dl-tls.c:532)
+==28953==    by 0x485D322: allocate_stack (allocatestack.c:622)
+==28953==    by 0x485D322: pthread_create@@GLIBC_2.2.5 (pthread_create.c:660)
+==28953==    by 0x10A26A: main (aesdsocket.c:315)
+==28953== 
+==28953== LEAK SUMMARY:
+==28953==    definitely lost: 0 bytes in 0 blocks
+==28953==    indirectly lost: 0 bytes in 0 blocks
+==28953==      possibly lost: 272 bytes in 1 blocks
+==28953==    still reachable: 24 bytes in 1 blocks
+==28953==         suppressed: 0 bytes in 0 blocks
+==28953== 
+==28953== ERROR SUMMARY: 85 errors from 29 contexts (suppressed: 0 from 0)
+==28953== 
+==28953== 1 errors in context 1 of 29:
+==28953== Invalid free() / delete / delete[] / realloc()
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d080 is 0 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 1 errors in context 2 of 29:
+==28953== Invalid read of size 8
+==28953==    at 0x48F8F70: fclose@@GLIBC_2.2.5 (iofclose.c:71)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d0c8 is 72 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 1 errors in context 3 of 29:
+==28953== Invalid read of size 4
+==28953==    at 0x48F8E41: fclose@@GLIBC_2.2.5 (iofclose.c:58)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d140 is 192 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 1 errors in context 4 of 29:
+==28953== Invalid read of size 1
+==28953==    at 0x49098C6: _IO_un_link (genops.c:54)
+==28953==    by 0x49098C6: _IO_default_finish (genops.c:618)
+==28953==    by 0x48F8E40: fclose@@GLIBC_2.2.5 (iofclose.c:57)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d080 is 0 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 1 errors in context 5 of 29:
+==28953== Invalid read of size 8
+==28953==    at 0x49098B0: _IO_default_finish (genops.c:612)
+==28953==    by 0x48F8E40: fclose@@GLIBC_2.2.5 (iofclose.c:57)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d0c8 is 72 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 1 errors in context 6 of 29:
+==28953== Invalid read of size 8
+==28953==    at 0x4909897: _IO_default_finish (genops.c:609)
+==28953==    by 0x48F8E40: fclose@@GLIBC_2.2.5 (iofclose.c:57)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d0e0 is 96 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 1 errors in context 7 of 29:
+==28953== Invalid read of size 8
+==28953==    at 0x4909888: _IO_default_finish (genops.c:603)
+==28953==    by 0x48F8E40: fclose@@GLIBC_2.2.5 (iofclose.c:57)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d0b8 is 56 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 1 errors in context 8 of 29:
+==28953== Invalid read of size 4
+==28953==    at 0x4906F5D: _IO_file_finish@@GLIBC_2.2.5 (fileops.c:170)
+==28953==    by 0x48F8E40: fclose@@GLIBC_2.2.5 (iofclose.c:57)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d0f0 is 112 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 1 errors in context 9 of 29:
+==28953== Invalid read of size 8
+==28953==    at 0x48F8E12: fclose@@GLIBC_2.2.5 (iofclose.c:57)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d158 is 216 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 1 errors in context 10 of 29:
+==28953== Invalid write of size 8
+==28953==    at 0x48F8F50: _IO_acquire_lock_fct (libioP.h:885)
+==28953==    by 0x48F8F50: fclose@@GLIBC_2.2.5 (iofclose.c:51)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d168 is 232 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 1 errors in context 11 of 29:
+==28953== Invalid read of size 8
+==28953==    at 0x48F8E01: _IO_acquire_lock_fct (libioP.h:885)
+==28953==    by 0x48F8E01: fclose@@GLIBC_2.2.5 (iofclose.c:51)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d108 is 136 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 1 errors in context 12 of 29:
+==28953== Invalid read of size 4
+==28953==    at 0x48F8F36: fclose@@GLIBC_2.2.5 (iofclose.c:53)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d080 is 0 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 1 errors in context 13 of 29:
+==28953== Invalid read of size 4
+==28953==    at 0x4906DF8: _IO_file_close_it@@GLIBC_2.2.5 (fileops.c:131)
+==28953==    by 0x48F8F35: fclose@@GLIBC_2.2.5 (iofclose.c:53)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d0f0 is 112 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 1 errors in context 14 of 29:
+==28953== Invalid write of size 8
+==28953==    at 0x48F8F15: fclose@@GLIBC_2.2.5 (iofclose.c:51)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d168 is 232 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 1 errors in context 15 of 29:
+==28953== Invalid read of size 4
+==28953==    at 0x48F8F12: fclose@@GLIBC_2.2.5 (iofclose.c:51)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d080 is 0 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 1 errors in context 16 of 29:
+==28953== Invalid read of size 8
+==28953==    at 0x48F8F0B: fclose@@GLIBC_2.2.5 (iofclose.c:51)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d108 is 136 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 1 errors in context 17 of 29:
+==28953== Invalid read of size 8
+==28953==    at 0x48F8EED: fclose@@GLIBC_2.2.5 (iofclose.c:51)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d168 is 232 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 1 errors in context 18 of 29:
+==28953== Invalid read of size 8
+==28953==    at 0x48F8EDD: fclose@@GLIBC_2.2.5 (iofclose.c:51)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d108 is 136 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 1 errors in context 19 of 29:
+==28953== Invalid read of size 4
+==28953==    at 0x48F8ED5: fclose@@GLIBC_2.2.5 (iofclose.c:51)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d080 is 0 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 1 errors in context 20 of 29:
+==28953== Invalid read of size 1
+==28953==    at 0x49083C4: _IO_un_link (genops.c:54)
+==28953==    by 0x48F8ED4: fclose@@GLIBC_2.2.5 (iofclose.c:49)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d080 is 0 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 1 errors in context 21 of 29:
+==28953== Invalid read of size 4
+==28953==    at 0x48F8DDB: fclose@@GLIBC_2.2.5 (iofclose.c:48)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d080 is 0 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 1 errors in context 22 of 29:
+==28953== Syscall param socketcall.accept(addr) points to unaddressable byte(s)
+==28953==    at 0x48674FF: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Address 0x4a6d360 is 48 bytes inside a block of size 64 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x497DB2F: freeaddrinfo (getaddrinfo.c:2521)
+==28953==    by 0x109F29: main (aesdsocket.c:245)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x497ABF9: gaih_inet.constprop.0 (getaddrinfo.c:1058)
+==28953==    by 0x497CF58: getaddrinfo (getaddrinfo.c:2256)
+==28953==    by 0x109D52: main (aesdsocket.c:205)
+==28953== 
+==28953== 
+==28953== 2 errors in context 23 of 29:
+==28953== Invalid read of size 4
+==28953==    at 0x48F8E08: _IO_acquire_lock_fct (libioP.h:885)
+==28953==    by 0x48F8E08: fclose@@GLIBC_2.2.5 (iofclose.c:51)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d164 is 228 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 2 errors in context 24 of 29:
+==28953== Invalid read of size 4
+==28953==    at 0x48F8F19: fclose@@GLIBC_2.2.5 (iofclose.c:51)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d164 is 228 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 2 errors in context 25 of 29:
+==28953== Invalid read of size 4
+==28953==    at 0x48F900F: fclose@@GLIBC_2.2.5 (iofclose.c:51)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d160 is 224 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 3 errors in context 26 of 29:
+==28953== Invalid read of size 4
+==28953==    at 0x48F9028: _IO_acquire_lock_fct (libioP.h:885)
+==28953==    by 0x48F9028: fclose@@GLIBC_2.2.5 (iofclose.c:51)
+==28953==    by 0x10A386: main (aesdsocket.c:332)
+==28953==  Address 0x4a6d160 is 224 bytes inside a block of size 472 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F8EC2: _IO_deallocate_file (libioP.h:863)
+==28953==    by 0x48F8EC2: fclose@@GLIBC_2.2.5 (iofclose.c:74)
+==28953==    by 0x109C0F: signal_handler (aesdsocket.c:173)
+==28953==    by 0x48BA08F: ??? (in /usr/lib/x86_64-linux-gnu/libc-2.31.so)
+==28953==    by 0x48674FC: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x48F992D: __fopen_internal (iofopen.c:65)
+==28953==    by 0x48F992D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==28953==    by 0x109C79: main (aesdsocket.c:183)
+==28953== 
+==28953== 
+==28953== 17 errors in context 27 of 29:
+==28953== Syscall param socketcall.accept(addrlen_out) points to unaddressable byte(s)
+==28953==    at 0x48674FF: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Address 0x4a6d340 is 16 bytes inside a block of size 64 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x497DB2F: freeaddrinfo (getaddrinfo.c:2521)
+==28953==    by 0x109F29: main (aesdsocket.c:245)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x497ABF9: gaih_inet.constprop.0 (getaddrinfo.c:1058)
+==28953==    by 0x497CF58: getaddrinfo (getaddrinfo.c:2256)
+==28953==    by 0x109D52: main (aesdsocket.c:205)
+==28953== 
+==28953== 
+==28953== 18 errors in context 28 of 29:
+==28953== Invalid read of size 8
+==28953==    at 0x10A14C: main (aesdsocket.c:296)
+==28953==  Address 0x4a6d348 is 24 bytes inside a block of size 64 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x497DB2F: freeaddrinfo (getaddrinfo.c:2521)
+==28953==    by 0x109F29: main (aesdsocket.c:245)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x497ABF9: gaih_inet.constprop.0 (getaddrinfo.c:1058)
+==28953==    by 0x497CF58: getaddrinfo (getaddrinfo.c:2256)
+==28953==    by 0x109D52: main (aesdsocket.c:205)
+==28953== 
+==28953== 
+==28953== 19 errors in context 29 of 29:
+==28953== Syscall param socketcall.accept(addrlen_in) points to unaddressable byte(s)
+==28953==    at 0x48674FF: accept (accept.c:26)
+==28953==    by 0x10A15F: main (aesdsocket.c:296)
+==28953==  Address 0x4a6d340 is 16 bytes inside a block of size 64 free'd
+==28953==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x497DB2F: freeaddrinfo (getaddrinfo.c:2521)
+==28953==    by 0x109F29: main (aesdsocket.c:245)
+==28953==  Block was alloc'd at
+==28953==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28953==    by 0x497ABF9: gaih_inet.constprop.0 (getaddrinfo.c:1058)
+==28953==    by 0x497CF58: getaddrinfo (getaddrinfo.c:2256)
+==28953==    by 0x109D52: main (aesdsocket.c:205)
+==28953== 
+==28953== ERROR SUMMARY: 85 errors from 29 contexts (suppressed: 0 from 0)

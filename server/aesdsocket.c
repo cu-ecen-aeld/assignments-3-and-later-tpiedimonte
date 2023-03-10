@@ -2,11 +2,8 @@
  * Tyler Socket Application
  * AESD
  */
-#include <arpa/inet.h>
 #include <errno.h>
-#include <fcntl.h>
 #include <netdb.h>
-#include <netinet/in.h>
 #include <pthread.h>
 #include <signal.h>
 #include <stdbool.h>
@@ -15,10 +12,8 @@
 #include <string.h>
 #include <sys/queue.h>
 #include <sys/socket.h>
-#include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-// #include <syslog.h>
 #include <time.h>
 #include <unistd.h>
 
@@ -33,6 +28,7 @@ pid_t pid;
 bool kill_thread = false;
 int loc = 0;
 pthread_mutex_t mutex;
+int nSocket;
 
 struct thread_info {
   pthread_t thread_id;
@@ -42,8 +38,12 @@ struct thread_info {
 };
 SLIST_HEAD(thread_list, thread_info) threads = SLIST_HEAD_INITIALIZER(threads);
 
+#define SLIST_FOREACH_SAFE(var, head, field, tvar)                             \
+  for ((var) = SLIST_FIRST((head));                                            \
+       (var) && ((tvar) = SLIST_NEXT((var), field), 1); (var) = (tvar))
+
 static void *write_timestamp(void *arg) {
-  (void *)(arg);
+  (void)(arg);
   time_t now;
   struct tm *time_info;
   char timestamp[128];
@@ -64,6 +64,7 @@ static void *write_timestamp(void *arg) {
 
     sleep(10);
   }
+  pthread_exit(NULL);
 }
 
 const char NL = '\n';
@@ -162,26 +163,22 @@ static void *thread_server(void *arg) {
 }
 
 /* Handle signal and exit */
-static void signal_handler(int signal) {
-  if (signal == SIGINT || signal == SIGTERM) {
-    kill_thread = true;
+static void signal_handler(int sign) {
+  if (sign == SIGINT || sign == SIGTERM) {
+    printf("Caught Signal %d, exiting", sign);
+    signal(SIGINT, SIG_IGN);
+    signal(SIGTERM, SIG_IGN);
+    shutdown(nSocket, SHUT_RDWR);
+    pthread_mutex_destroy(&mutex);
     fclose(fout);
-    // remove(LOG_FILE);
-    printf("Caught signal, exiting");
-    exit(-1);
+    kill_thread = true;
   }
 }
 
 int main(int argc, char **argv) {
   const char *daemonArg = argv[1];
   bool d_mode = false;
-
-  // register signal handlers
   printf("Starting Up \n");
-  signal(SIGINT, signal_handler);
-  signal(SIGTERM, signal_handler);
-
-  pthread_mutex_init(&mutex, NULL);
 
   fout = fopen(LOG_FILE, "w+");
   if (fout == NULL) {
@@ -194,8 +191,12 @@ int main(int argc, char **argv) {
     d_mode = true;
   }
 
+  signal(SIGINT, signal_handler);
+  signal(SIGTERM, signal_handler);
+
   int nsocket, nbind, getaddr, nlisten, client;
   struct addrinfo hints, *servinfo;
+  pthread_mutex_init(&mutex, NULL);
 
   memset(&hints, 0, sizeof(hints));
   hints.ai_family = AF_UNSPEC;
@@ -220,22 +221,35 @@ int main(int argc, char **argv) {
     pthread_mutex_destroy(&mutex);
     return -1;
   }
+  nSocket = nsocket;
 
   do {
     nbind = bind(nsocket, servinfo->ai_addr, servinfo->ai_addrlen);
-    close(nsocket);
-    sleep(1);
-    nsocket = socket(servinfo->ai_family, servinfo->ai_socktype,
-                     servinfo->ai_protocol);
-    if (nsocket == -1) {
-      printf("Error - failed to get socket, returned %d", nsocket);
-      freeaddrinfo(servinfo);
-      fclose(fout);
-      pthread_mutex_destroy(&mutex);
-      return -1;
+    if (nbind == -1 && errno == EADDRINUSE) {
+      printf("Socket busy...\n");
+      close(nsocket);
+      sleep(1);
+      nsocket = socket(servinfo->ai_family, servinfo->ai_socktype,
+                       servinfo->ai_protocol);
+      if (nsocket == -1) {
+        printf("Error - failed to get socket, returned %d", nsocket);
+        freeaddrinfo(servinfo);
+        fclose(fout);
+        pthread_mutex_destroy(&mutex);
+        return -1;
+      }
+      nSocket = nsocket;
     }
   } while (nbind == -1 && errno == EADDRINUSE);
+
   freeaddrinfo(servinfo);
+  if (nsocket == -1) {
+    printf("Error - failed to bind socket, returned %d", nsocket);
+    shutdown(nsocket, SHUT_RDWR);
+    fclose(fout);
+    pthread_mutex_destroy(&mutex);
+    return -1;
+  }
 
   int yes = 1;
   if (setsockopt(nsocket, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes)) == -1) {
@@ -247,7 +261,7 @@ int main(int argc, char **argv) {
   }
 
   // daemon mode
-  if (d_mode) {
+  if (d_mode && nbind == 0) {
     pid = fork();
     if (pid == -1) {
       printf("fork error = %d\n", errno);
@@ -257,15 +271,19 @@ int main(int argc, char **argv) {
       return -1;
     } else if (pid != 0) {
       exit(0);
+    } else {
+      printf("forked daemon\n");
     }
   }
 
   nlisten = listen(nsocket, SOMAXCONN);
-  if (nlisten != 0) {
+  if (nlisten != 0 && !kill_thread) {
     printf("Error - failed to listen\n");
+    remove(LOG_FILE);
     shutdown(nsocket, SHUT_RDWR);
     fclose(fout);
     pthread_mutex_destroy(&mutex);
+    return -1;
   } else {
     printf("Listening...\n");
   }
@@ -276,9 +294,10 @@ int main(int argc, char **argv) {
 
   while (!kill_thread) {
     client = accept(nsocket, servinfo->ai_addr, &servinfo->ai_addrlen);
-    if (client == -1) {
+    if (client == -1 && !kill_thread) {
       printf("accept error = %d\n", errno);
       fclose(fout);
+      remove(LOG_FILE);
       pthread_join(time_thread, NULL);
       pthread_mutex_destroy(&mutex);
       shutdown(client, SHUT_RDWR);
@@ -298,7 +317,7 @@ int main(int argc, char **argv) {
       pthread_mutex_lock(&mutex);
       SLIST_INSERT_HEAD(&threads, info, entries);
 
-      SLIST_FOREACH(thread_info_i, &threads, entries) {
+      SLIST_FOREACH_SAFE(thread_info_i, &threads, entries, info) {
         if (thread_info_i->done) {
           pthread_join(thread_info_i->thread_id, NULL);
           SLIST_REMOVE(&threads, thread_info_i, thread_info, entries);
@@ -311,8 +330,10 @@ int main(int argc, char **argv) {
 
   pthread_join(time_thread, NULL);
   fclose(fout);
+  remove(LOG_FILE);
   shutdown(client, SHUT_RDWR);
   shutdown(nsocket, SHUT_RDWR);
   pthread_mutex_destroy(&mutex);
+  printf("aesdsocket done\n");
   return 0;
 }
